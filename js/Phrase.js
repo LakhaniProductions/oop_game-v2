@@ -1,14 +1,12 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * Phrase.js */
+// Phrase.js to create a Phrase class to handle the creation of phrases.
 
-const phraseDiv = document.querySelector('#phrase');
+
+let phraseDiv = document.querySelector('#phrase');
 const phraseUl = phraseDiv.childNodes[1];
-const keysAll= document.querySelectorAll('.key');
-
-
-
-
+let keysAll= document.querySelectorAll('.key');
 
 class Phrase {
     constructor(phrase){
@@ -17,6 +15,7 @@ class Phrase {
     }
 
     addPhraseToDisplay(){
+
         for(let i=0; i< this.phrase.length; i++){
             if(this.phrase.charAt(i) !== ' ') {
                 const charLi= document.createElement('li');
@@ -35,14 +34,15 @@ class Phrase {
     }
 
     checkLetter(){
-
+        
         for (let i= 0; i < keysAll.length; i++) {
             keysAll[i].addEventListener('click', e => {
 
                 const buttonLetter = e.target.textContent;
 
                 if (this.phrase.includes(buttonLetter)){
-                    return true;
+
+                     return true;
                 } else{
                     return false;
                 }
@@ -52,30 +52,22 @@ class Phrase {
     }
     
     showMatchedLetter(){
+        
         for (let i= 0; i < keysAll.length; i++) {
+
             keysAll[i].addEventListener('click', e => {
 
+                const showLetter = document.querySelectorAll('.hide');
                 const buttonLetter = e.target.textContent;
-                const toShow = document.querySelectorAll('li.hide');
                 
-
-                if (this.phrase.includes(buttonLetter)){
-                    
-                    for (let i=0; i < this.phrase.length; i++){
-                        const showLetter = toShow[i];
-                        console.log(showLetter.textContent)
-                        // if (buttonLetter === showLetter.textContent){
-                        //     toShow.setAttribute('class',`show letter ${this.phrase.charAt(i)}`);
-                        // }
-
-                    }
-                   
-                } else{
-                    return false;
-                }
+                for (let i= 0; i < this.phrase.length; i++) {
+                    if ( buttonLetter === showLetter.item(i).textContent){
+                        showLetter.item(i).setAttribute('class',`show`);
+                    } 
+                }  
             });
         }
-    }
+    }    
 
 }
 
@@ -83,5 +75,3 @@ class Phrase {
 
 
 
-
-// return true;
