@@ -56,39 +56,23 @@ scoreboard. */
         const phraseDiv = phrase.childNodes;
         const phraseUl = phraseDiv[1];
         const phraseLi= phraseUl.querySelectorAll('li');
-        console.log(phraseLi.length);
-        //console.log(phraseLi.classList.contains('hide'));
-        //console.log(keysAll);
+        const shownLetters= document.getElementsByClassName('show');
+   
+      
         
 
 
         for (let i= 0; i < phraseLi.length; i++) {
             
-                
+            console.log(shownLetters);
 
-                const phraseClass = phraseLi[i].classList;
-                const shownArray = [];
-                //console.log(phraseClass[0]!== 'hide');
-                console.log(phraseClass[0] === 'show');
-                //console.log(shownArray);
-                //console.log(phraseClass[0] !== 'hide' && phraseClass[0] !== 'space');
-                
-                //console.log(phraseLi[i].textContent,phraseClass[0], [i]);
-                //console.log(shownArray,shownArray.length);
+            const phraseClass = phraseLi[i].classList;
             
-                    // if(phraseClass[0] !== 'hide' && phraseClass[0] !== 'space'){
-                        
-                    // } else {
-                    //     shownArray.push(phraseLi);
-                    //     console.log(shownArray[0].length);
-                    // }
             
-                
-
 
             
         }
-       
+        
       
         
     }
