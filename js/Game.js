@@ -56,7 +56,7 @@ scoreboard. */
         const phraseDiv = phrase.childNodes;
         const phraseUl = phraseDiv[1];
         const phraseLi= phraseUl.querySelectorAll('li');
-        const shownLetters= document.getElementsByClassName('show');
+        const shownLetters= document.getElementsByClassName('hide');
    
       
         
@@ -68,7 +68,7 @@ scoreboard. */
 
             //const phraseClass = phraseLi[i].classList;
             
-            if(shownLetters.length !== 0) {
+            if(shownLetters.length === 0) {
                 console.log('test');
             }
 
