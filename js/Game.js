@@ -64,11 +64,13 @@ scoreboard. */
 
         for (let i= 0; i < phraseLi.length; i++) {
             
-            console.log(shownLetters);
+            console.log(shownLetters,shownLetters.length);
 
-            const phraseClass = phraseLi[i].classList;
+            //const phraseClass = phraseLi[i].classList;
             
-            
+            if(shownLetters.length !== 0) {
+                console.log('test');
+            }
 
             
         }
