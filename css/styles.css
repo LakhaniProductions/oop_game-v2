@@ -118,8 +118,25 @@ button {
   padding: 20px 1px 0 1px;
   margin-right: 2px;
   border-radius: 5px;
-  -webkit-animation-duration: .5s;
-  animation-duration: .5s;
+
+  animation-name: jump;
+
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+}
+
+@keyframes jump {
+  0% {
+      transform: translateY(-10px);
+  }
+
+  80% {
+      transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 
