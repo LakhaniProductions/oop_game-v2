@@ -10,19 +10,16 @@
  * 
 */
 
+let game;
 
 
 const button= document.getElementById('btn__reset');
 
 
+
 button.addEventListener('click', e => {
-    const game = new Game();
-    game.startGame();
-    game.handleInteraction();
-    game.checkForWin();
+    game = new Game();
     
-    game.removeLife();
+    game.startGame();
 });
-
-
 
