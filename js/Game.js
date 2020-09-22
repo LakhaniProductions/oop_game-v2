@@ -23,8 +23,6 @@ let keysAll= document.querySelectorAll('.key');
         this.phrases = this.createPhrases();
         this.activePhrase = null;
         this.getRandomPhrase();
-        this.handleInteraction();
-        
     }
 
     createPhrases(){
@@ -53,10 +51,7 @@ let keysAll= document.querySelectorAll('.key');
         phrase = new Phrase(randomPhrase.phrase); 
         phrase.addPhraseToDisplay();
 
-        this.activePhrase = randomPhrase;
-
-        
-           
+        this.activePhrase = randomPhrase;      
     }
 
     checkForWin(){
@@ -88,30 +83,26 @@ let keysAll= document.querySelectorAll('.key');
         
     }
 
-    handleInteraction(){
+    handleInteraction(key){
         
-        for (let i= 0; i < keysAll.length; i++) {
-    
-            keysAll[i].addEventListener('click', e => {
-                
-                let buttonLetter = e.target.textContent;
-                let buttonClicked= e.target;
-                let keyClass= buttonClicked.className;
-                //phrase.checkLetter(buttonLetter);
-                
-                if (phrase.checkLetter(buttonLetter)){
-                    buttonClicked.setAttribute('class', `${keyClass} + chosen`);
-                    buttonClicked.style.pointerEvents='none';
-                    phrase.showMatchedLetter(buttonLetter);
-                    this.checkForWin();
-                } else {
-                    buttonClicked.setAttribute('class', `${keyClass} + wrong`);
-                    buttonClicked.style.pointerEvents='none';
-                    this.removeLife(buttonLetter);
-                }
+        if (phrase.checkLetter(key) && key){
+            for (let i=0; i < keysAll.length; i++){
+                if(key === keysAll[i].textContent ){
+                    keysAll[i].setAttribute('class', `${keysAll}[i] chosen`);
+                    keysAll[i].style.pointerEvents='none';
+                } 
+            }
 
-                
-            });
+            phrase.showMatchedLetter(key);
+            this.checkForWin();
+        } else {
+            for (let i=0; i < keysAll.length; i++){
+               
+                if(key === keysAll[i].textContent){
+                    keysAll[i].setAttribute('class', `${keysAll}[i] wrong`);
+                    keysAll[i].style.pointerEvents='none';
+                } 
+            }
         }
     }
 
@@ -128,7 +119,8 @@ let keysAll= document.querySelectorAll('.key');
             overlay.style.display='inherit';
             overlay.setAttribute('class', result);
             message.textContent= `Sorry, Better Luck Next Time!`;
-        }
+
+        } 
         
         ul.innerHTML='';
 
@@ -138,17 +130,14 @@ let keysAll= document.querySelectorAll('.key');
         }
 
         for(let i=0; i < heartsOl.length; i++){
-            console.log(heartsOl[i]);
             const heartImg= heartsOl[i].querySelector('img');
             heartImg.src="images/liveHeart.png";
         }
 
+       
+
     }
  }
-
-
-
-
 
 
 
