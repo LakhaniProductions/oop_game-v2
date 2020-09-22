@@ -5,6 +5,17 @@
 /* Game.js to create a Game class methods for starting and ending the game, handling
 interactions, getting a random phrase, checking for a win, and removing a life from the
 scoreboard. */
+let hiddenLetters= document.getElementsByClassName('hide');
+let shownnLetters= document.getElementsByClassName('show');
+
+
+let randomPhrase;
+let phrase;
+
+let heartsOl= document.querySelectorAll('li.tries');
+
+let  overlay= document.getElementById('overlay');
+let keysAll= document.querySelectorAll('.key');
 
  class Game {
     constructor(){
@@ -12,6 +23,8 @@ scoreboard. */
         this.phrases = this.createPhrases();
         this.activePhrase = null;
         this.getRandomPhrase();
+        this.handleInteraction();
+        
     }
 
     createPhrases(){
@@ -33,58 +46,104 @@ scoreboard. */
     }
 
     startGame(){
-        const overlay= document.getElementById('overlay');
+       
         overlay.style.display='none';
-    }
 
-    handleInteraction(){
-        const randomPhrase = this.getRandomPhrase();
-        const phrase = new Phrase(randomPhrase.phrase); 
+        randomPhrase = this.getRandomPhrase();
+        phrase = new Phrase(randomPhrase.phrase); 
         phrase.addPhraseToDisplay();
 
         this.activePhrase = randomPhrase;
 
-        //console.log(randomPhrase, this.activePhrase, phrase)
         
-        //phrase.checkLetter();     
-        phrase.showMatchedLetter();     
-        
-        
+           
     }
 
     checkForWin(){
-        const phraseDiv = phrase.childNodes;
-        const phraseUl = phraseDiv[1];
-        const phraseLi= phraseUl.querySelectorAll('li');
-        const shownLetters= document.getElementsByClassName('hide');
-   
-      
+        if(hiddenLetters.length === 0) {
+            this.gameOver('win');
+        } else {
+            return false;
+        }
+
+
+    }
+
+    removeLife(letter){
         
+        if(!phrase.checkLetter(letter)) {
+            this.missed+=1;
+        } else {
+            return false;
+        }
 
-
-        for (let i= 0; i < phraseLi.length; i++) {
-            
-            console.log(shownLetters,shownLetters.length);
-
-            //const phraseClass = phraseLi[i].classList;
-            
-            if(shownLetters.length === 0) {
-                console.log('test');
-            }
-
-            
+        for (let i=0; i< heartsOl.length; i++){
+            let heartsLiImg= heartsOl[this.missed-1].querySelector('img');
+            heartsLiImg.src ="images/lostHeart.png";
         }
         
-      
+        if(this.missed >= heartsOl.length) {
+            this.gameOver('lose');
+        } 
         
     }
 
-    removeLife(){
+    handleInteraction(){
         
-       
+        for (let i= 0; i < keysAll.length; i++) {
+    
+            keysAll[i].addEventListener('click', e => {
+                
+                let buttonLetter = e.target.textContent;
+                let buttonClicked= e.target;
+                let keyClass= buttonClicked.className;
+                //phrase.checkLetter(buttonLetter);
+                
+                if (phrase.checkLetter(buttonLetter)){
+                    buttonClicked.setAttribute('class', `${keyClass} + chosen`);
+                    buttonClicked.style.pointerEvents='none';
+                    phrase.showMatchedLetter(buttonLetter);
+                    this.checkForWin();
+                } else {
+                    buttonClicked.setAttribute('class', `${keyClass} + wrong`);
+                    buttonClicked.style.pointerEvents='none';
+                    this.removeLife(buttonLetter);
+                }
+
+                
+            });
+        }
     }
 
-    gameOver(){}
+    gameOver(result){
+
+        let message= document.getElementById('game-over-message');
+        let ul= document.getElementsByTagName('ul')[0];
+
+        if(result==='win'){
+            overlay.style.display='inherit';
+            overlay.setAttribute('class', result);
+            message.textContent= `You've Done It! You Won!`;
+        } else if (result==='lose') {
+            overlay.style.display='inherit';
+            overlay.setAttribute('class', result);
+            message.textContent= `Sorry, Better Luck Next Time!`;
+        }
+        
+        ul.innerHTML='';
+
+        for (let i= 0; i < keysAll.length; i++) { 
+            keysAll[i].setAttribute('class', `${keysAll.textContent}`);
+            keysAll[i].style.pointerEvents='';
+        }
+
+        for(let i=0; i < heartsOl.length; i++){
+            console.log(heartsOl[i]);
+            const heartImg= heartsOl[i].querySelector('img');
+            heartImg.src="images/liveHeart.png";
+        }
+
+    }
  }
 
 
