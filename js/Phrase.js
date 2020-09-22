@@ -44,11 +44,12 @@ class Phrase {
 
     showMatchedLetter(letter){
 
-        const showLetter = document.querySelectorAll('.hide');
+        const showLetter = document.querySelectorAll('.letter');
         
-        for (let i= 0; i < this.phrase.length; i++) {
-            if (letter === showLetter.item(i).textContent){
-                showLetter.item(i).setAttribute('class',`show`);
+        for (let i= 0; i < showLetter.length; i++) {
+            if (letter === showLetter[i].textContent){
+                showLetter[i].classList.remove('hide');
+                showLetter[i].classList.add('show');
             } 
         } 
         
