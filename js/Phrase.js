@@ -6,7 +6,7 @@
 
 let phraseDiv = document.querySelector('#phrase');
 const phraseUl = phraseDiv.childNodes[1];
-let keysAll= document.querySelectorAll('.key');
+
 
 class Phrase {
     constructor(phrase){
@@ -32,46 +32,30 @@ class Phrase {
             }   
         }
     }
-
-    checkLetter(){
-        
-        for (let i= 0; i < keysAll.length; i++) {
-            keysAll[i].addEventListener('click', e => {
-
-                const buttonLetter = e.target.textContent;
-
-                if (this.phrase.includes(buttonLetter)){
-
-                     return true;
-                } else{
-                    return false;
-                }
-            });
-        }
-
-    }
     
-    showMatchedLetter(){
+    checkLetter(letter){
         
-        for (let i= 0; i < keysAll.length; i++) {
-
-            keysAll[i].addEventListener('click', e => {
-
-                const showLetter = document.querySelectorAll('.hide');
-                const buttonLetter = e.target.textContent;
-                
-                for (let i= 0; i < this.phrase.length; i++) {
-                    if ( buttonLetter === showLetter.item(i).textContent){
-                        showLetter.item(i).setAttribute('class',`show`);
-                    } 
-                }  
-            });
+        if (this.phrase.includes(letter)){
+            return true;
+        } else{
+           return false;
         }
-    }    
+    }
+
+    showMatchedLetter(letter){
+
+        const showLetter = document.querySelectorAll('.hide');
+        
+        for (let i= 0; i < this.phrase.length; i++) {
+            if (letter === showLetter.item(i).textContent){
+                showLetter.item(i).setAttribute('class',`show`);
+            } 
+        } 
+        
+    }        
+
 
 }
-
-
 
 
 
