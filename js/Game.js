@@ -36,16 +36,13 @@ let keysAll= document.querySelectorAll('.key');
     checkForWin(){
         if(hiddenLetters.length === 0) {
             return true;
-            //this.gameOver('win');
         } 
     }
 
     removeLife(letter){
-        
-        
+    
         if(!this.activePhrase.checkLetter(letter)) {
             this.missed+=1;
-            //console.log(this.missed,heartsOl.length)
         } else {
             return false;
         }
@@ -81,7 +78,6 @@ let keysAll= document.querySelectorAll('.key');
                 buttonClicked.setAttribute('class', `${keyClass} wrong`);
                 buttonClicked.style.pointerEvents='none';
                 this.removeLife(buttonLetter);
-                //this.checkForWin();
             }
            
         } else {
@@ -111,7 +107,6 @@ let keysAll= document.querySelectorAll('.key');
                         } 
                     }
                     this.removeLife(key.key);
-                    //this.checkForWin();
                 }
             } 
         }
@@ -121,7 +116,7 @@ let keysAll= document.querySelectorAll('.key');
         
         let message= document.getElementById('game-over-message');
         let ul= document.getElementsByTagName('ul')[0];
-        result=result;
+        
 
         if(result==='win'){
             overlay.style.display='inherit';
@@ -146,6 +141,6 @@ let keysAll= document.querySelectorAll('.key');
             const heartImg= heartsOl[i].querySelector('img');
             heartImg.src="images/liveHeart.png";
         }
-        console.log(result);
+
     }
  }
