@@ -14,10 +14,7 @@ for (let i= 0; i < keysAll.length; i++) {
 }
 
 document.addEventListener('keypress', (e)=>{
-
     let key= e;
     game.handleInteraction(key);
-        
-   
 });
 
