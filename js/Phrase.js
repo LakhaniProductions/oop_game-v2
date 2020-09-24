@@ -45,11 +45,8 @@ class Phrase {
                 showLetter[i].classList.remove('hide');
                 showLetter[i].classList.add('show');
             } 
-        } 
-        
-    }        
-
-
+        }    
+    }   
 }
 
 
