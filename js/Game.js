@@ -42,7 +42,6 @@ let keysAll= document.querySelectorAll('.key');
     }
 
     removeLife(letter){
-    
         if(!this.activePhrase.checkLetter(letter)) {
             this.missed+=1;
         } else {
@@ -56,7 +55,6 @@ let keysAll= document.querySelectorAll('.key');
 
         if (this.missed >= heartsOl.length){
             this.gameOver('lose');
-            
         }
     }
 
@@ -71,7 +69,6 @@ let keysAll= document.querySelectorAll('.key');
                 if (this.activePhrase.checkLetter(buttonLetter)){
                     buttonClicked.setAttribute('class', `${keyClass} chosen`);
                     buttonClicked.style.pointerEvents='none';
-                    
                     this.activePhrase.showMatchedLetter(buttonLetter);
                     this.checkForWin();
                     if(this.checkForWin()){
@@ -94,7 +91,6 @@ let keysAll= document.querySelectorAll('.key');
                                 keysAll[i].style.pointerEvents='none';
                             } 
                         }
-    
                         this.activePhrase.showMatchedLetter(key.key);
                         this.checkForWin();
                         if(this.checkForWin()){
@@ -113,27 +109,22 @@ let keysAll= document.querySelectorAll('.key');
                     }
                 } 
             }
-            
         }
-        
     }
 
     gameOver(result){
         
         let message= document.getElementById('game-over-message');
         let ul= document.getElementsByTagName('ul')[0];
-        
-
+    
         if(result==='win'){
             overlay.style.display='inherit';
             overlay.setAttribute('class', result);
-            message.textContent= `You've Done It! You Won!`;
-            
+            message.textContent= `You've Done It! You Won!`; 
         } else if (result==='lose') {
             overlay.style.display='inherit';
             overlay.setAttribute('class', result);
             message.textContent= `Sorry, Better Luck Next Time!`;
-
         } 
         
         ul.innerHTML='';
@@ -147,8 +138,5 @@ let keysAll= document.querySelectorAll('.key');
             const heartImg= heartsOl[i].querySelector('img');
             heartImg.src="images/liveHeart.png";
         }
-        
-      
-
     }
  }
