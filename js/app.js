@@ -13,8 +13,11 @@ for (let i= 0; i < keysAll.length; i++) {
     }); 
 }
 
-document.addEventListener('keyup', (e)=>{
+document.addEventListener('keypress', (e)=>{
+
     let key= e;
     game.handleInteraction(key);
+        
+   
 });
 
