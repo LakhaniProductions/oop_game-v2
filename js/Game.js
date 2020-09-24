@@ -1,10 +1,3 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Game.js */
-
-/* Game.js to create a Game class methods for starting and ending the game, handling
-interactions, getting a random phrase, checking for a win, and removing a life from the
-scoreboard. */
 let hiddenLetters= document.getElementsByClassName('hide');
 let shownnLetters= document.getElementsByClassName('show');
 let heartsOl= document.querySelectorAll('li.tries');
@@ -143,58 +136,3 @@ let keysAll= document.querySelectorAll('.key');
         }
     }
  }
-
-
-
-
-
-
-
-
-
-/* WORKING HANDLE INTERACTION CODE */
-
-// if (phrase.checkLetter(key.key)){
-        //     for (let i=0; i < keysAll.length; i++){
-        //         if(key.key === keysAll[i].textContent ){
-        //             keysAll[i].setAttribute('class', `${keysAll}[i] chosen`);
-        //             keysAll[i].style.pointerEvents='none';
-        //         } 
-        //     }
-
-        //     phrase.showMatchedLetter(key.key);
-        //     this.checkForWin();
-        // } else {
-        //     for (let i=0; i < keysAll.length; i++){
-               
-        //         if(key.key === keysAll[i].textContent){
-        //             keysAll[i].setAttribute('class', `${keysAll}[i] wrong`);
-        //             keysAll[i].style.pointerEvents='none';
-        //         } 
-        //     }
-        // }
-
-
-
-
-
-/**Moving to handleInteraction */
-        
-        // let buttonLetter = e.target.textContent;
-        // let buttonClicked= e.target;
-        // let keyClass= buttonClicked.className;
-        // //phrase.checkLetter(buttonLetter);
-        
-        // if (phrase.checkLetter(buttonLetter)){
-        //     buttonClicked.setAttribute('class', `${keyClass} chosen`);
-        //     buttonClicked.style.pointerEvents='none';
-            
-        //     phrase.showMatchedLetter(buttonLetter);
-        //     game.checkForWin();
-            
-        // } else {
-        //     buttonClicked.setAttribute('class', `${keyClass} wrong`);
-        //     buttonClicked.style.pointerEvents='none';
-        //     game.removeLife(buttonLetter);
-        // }
-
