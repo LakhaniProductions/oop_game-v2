@@ -28,24 +28,27 @@ let keysAll= document.querySelectorAll('.key');
     }
 
     startGame(){
-       
         overlay.style.display='none';
         this.activePhrase = new Phrase(this.getRandomPhrase().phrase);  
         this.activePhrase.addPhraseToDisplay();    
     }
 
     checkForWin(){
+        console.log(hiddenLetters.length)
         if(hiddenLetters.length === 0) {
             this.gameOver('win');
-        } else if (this.missed >= heartsOl.length){
-            this.gameOver('lose');
-        }
+        } 
+        // else if (this.missed >= heartsOl.length){
+        //     this.gameOver('lose');
+        // }
     }
 
     removeLife(letter){
-
+        
+        
         if(!this.activePhrase.checkLetter(letter)) {
             this.missed+=1;
+            console.log(this.missed,heartsOl.length)
         } else {
             return false;
         }
@@ -53,6 +56,11 @@ let keysAll= document.querySelectorAll('.key');
         for (let i=0; i< heartsOl.length; i++){
             let heartsLiImg= heartsOl[this.missed-1].querySelector('img');
             heartsLiImg.src ="images/lostHeart.png";
+        }
+
+        if (this.missed >= heartsOl.length){
+            this.gameOver('lose');
+            
         }
     }
 
@@ -88,6 +96,7 @@ let keysAll= document.querySelectorAll('.key');
                             keysAll[i].style.pointerEvents='none';
                         } 
                     }
+
                     this.activePhrase.showMatchedLetter(key.key);
                     this.checkForWin();
 
@@ -99,6 +108,7 @@ let keysAll= document.querySelectorAll('.key');
                             keysAll[i].style.pointerEvents='none';
                         } 
                     }
+
                     this.removeLife(key.key);
                     this.checkForWin();
                 }
@@ -107,9 +117,10 @@ let keysAll= document.querySelectorAll('.key');
     }
 
     gameOver(result){
-
+        
         let message= document.getElementById('game-over-message');
         let ul= document.getElementsByTagName('ul')[0];
+        result=result;
 
         if(result==='win'){
             overlay.style.display='inherit';
@@ -134,5 +145,6 @@ let keysAll= document.querySelectorAll('.key');
             const heartImg= heartsOl[i].querySelector('img');
             heartImg.src="images/liveHeart.png";
         }
+        console.log(result);
     }
  }
