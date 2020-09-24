@@ -7,13 +7,7 @@ interactions, getting a random phrase, checking for a win, and removing a life f
 scoreboard. */
 let hiddenLetters= document.getElementsByClassName('hide');
 let shownnLetters= document.getElementsByClassName('show');
-
-
-let randomPhrase;
-let phrase;
-
 let heartsOl= document.querySelectorAll('li.tries');
-
 let  overlay= document.getElementById('overlay');
 let keysAll= document.querySelectorAll('.key');
 
@@ -22,7 +16,6 @@ let keysAll= document.querySelectorAll('.key');
         this.missed = 0;
         this.phrases = this.createPhrases();
         this.activePhrase = null;
-        this.getRandomPhrase();
     }
 
     createPhrases(){
@@ -37,36 +30,28 @@ let keysAll= document.querySelectorAll('.key');
     }
 
     getRandomPhrase(){
-
         let i = Math.floor(Math.random() * (this.phrases.length - 0) + 0);
         return this.phrases[i];
-        
     }
 
     startGame(){
        
         overlay.style.display='none';
-
-        randomPhrase = this.getRandomPhrase();
-        phrase = new Phrase(randomPhrase.phrase); 
-        phrase.addPhraseToDisplay();
-
-        this.activePhrase = randomPhrase;      
+        this.activePhrase = new Phrase(this.getRandomPhrase().phrase);  
+        this.activePhrase.addPhraseToDisplay();    
     }
 
     checkForWin(){
         if(hiddenLetters.length === 0) {
             this.gameOver('win');
-        } else {
-            return false;
+        } else if (this.missed >= heartsOl.length){
+            this.gameOver('lose');
         }
-
-
     }
 
     removeLife(letter){
 
-        if(!phrase.checkLetter(letter)) {
+        if(!this.activePhrase.checkLetter(letter)) {
             this.missed+=1;
         } else {
             return false;
@@ -76,72 +61,56 @@ let keysAll= document.querySelectorAll('.key');
             let heartsLiImg= heartsOl[this.missed-1].querySelector('img');
             heartsLiImg.src ="images/lostHeart.png";
         }
-        
-        if(this.missed >= heartsOl.length) {
-            this.gameOver('lose');
-        }
     }
 
     handleInteraction(key){
-        // KeyPress
-        console.log(key);
         if(key.type === 'submit'){
-                //Click
-
+            //Click
             let buttonLetter = key.textContent;
             let buttonClicked= key;
             let keyClass= buttonClicked.className;
-            //phrase.checkLetter(buttonLetter);
-            
-            if (phrase.checkLetter(buttonLetter)){
+              
+            if (this.activePhrase.checkLetter(buttonLetter)){
                 buttonClicked.setAttribute('class', `${keyClass} chosen`);
                 buttonClicked.style.pointerEvents='none';
                 
-                phrase.showMatchedLetter(buttonLetter);
-                game.checkForWin();
+                this.activePhrase.showMatchedLetter(buttonLetter);
+                this.checkForWin();
                 
             } else {
                 buttonClicked.setAttribute('class', `${keyClass} wrong`);
                 buttonClicked.style.pointerEvents='none';
-                game.removeLife(buttonLetter);
+                this.removeLife(buttonLetter);
+                this.checkForWin();
             }
            
         } else {
-        
+            // KeyPress
+            let code = key.which
+            if (code >= 65){
+                if (this.activePhrase.checkLetter(key.key)){
+                    for (let i=0; i < keysAll.length; i++){
+                        if(key.key === keysAll[i].textContent ){
+                            keysAll[i].setAttribute('class', `${keysAll}[i] chosen`);
+                            keysAll[i].style.pointerEvents='none';
+                        } 
+                    }
+                    this.activePhrase.showMatchedLetter(key.key);
+                    this.checkForWin();
 
-
-
-        console.log(key.type)
-        let code = key.which
-        if (code >= 65){
-            if (phrase.checkLetter(key.key)){
-                for (let i=0; i < keysAll.length; i++){
-                    if(key.key === keysAll[i].textContent ){
-                        keysAll[i].setAttribute('class', `${keysAll}[i] chosen`);
-                        keysAll[i].style.pointerEvents='none';
-                    } 
+                } else {
+                    for (let i=0; i < keysAll.length; i++){
+                    
+                        if(key.key === keysAll[i].textContent){
+                            keysAll[i].setAttribute('class', `${keysAll}[i] wrong`);
+                            keysAll[i].style.pointerEvents='none';
+                        } 
+                    }
+                    this.removeLife(key.key);
+                    this.checkForWin();
                 }
-    
-                phrase.showMatchedLetter(key.key);
-                this.checkForWin();
-            } else {
-                for (let i=0; i < keysAll.length; i++){
-                
-                    if(key.key === keysAll[i].textContent){
-                        keysAll[i].setAttribute('class', `${keysAll}[i] wrong`);
-                        keysAll[i].style.pointerEvents='none';
-                    } 
-                }
-
-                this.removeLife(key.key);
-            }
-        } 
+            } 
         }
-        
-
-        
-
-        
     }
 
     gameOver(result){
@@ -172,9 +141,6 @@ let keysAll= document.querySelectorAll('.key');
             const heartImg= heartsOl[i].querySelector('img');
             heartImg.src="images/liveHeart.png";
         }
-
-       
-
     }
  }
 
@@ -212,5 +178,23 @@ let keysAll= document.querySelectorAll('.key');
 
 
 
-
+/**Moving to handleInteraction */
+        
+        // let buttonLetter = e.target.textContent;
+        // let buttonClicked= e.target;
+        // let keyClass= buttonClicked.className;
+        // //phrase.checkLetter(buttonLetter);
+        
+        // if (phrase.checkLetter(buttonLetter)){
+        //     buttonClicked.setAttribute('class', `${keyClass} chosen`);
+        //     buttonClicked.style.pointerEvents='none';
+            
+        //     phrase.showMatchedLetter(buttonLetter);
+        //     game.checkForWin();
+            
+        // } else {
+        //     buttonClicked.setAttribute('class', `${keyClass} wrong`);
+        //     buttonClicked.style.pointerEvents='none';
+        //     game.removeLife(buttonLetter);
+        // }
 
