@@ -36,7 +36,9 @@ let keysAll= document.querySelectorAll('.key');
     checkForWin(){
         if(hiddenLetters.length === 0) {
             return true;
-        } 
+        } else {
+            return false;
+        }
     }
 
     removeLife(letter){
@@ -59,57 +61,61 @@ let keysAll= document.querySelectorAll('.key');
     }
 
     handleInteraction(key){
-        if(key.type === 'submit'){
-            //Click
-            let buttonLetter = key.textContent;
-            let buttonClicked= key;
-            let keyClass= buttonClicked.className;
-              
-            if (this.activePhrase.checkLetter(buttonLetter)){
-                buttonClicked.setAttribute('class', `${keyClass} chosen`);
-                buttonClicked.style.pointerEvents='none';
-                
-                this.activePhrase.showMatchedLetter(buttonLetter);
-                this.checkForWin();
-                if(this.checkForWin()){
-                    this.gameOver('win');
-                }
-            } else {
-                buttonClicked.setAttribute('class', `${keyClass} wrong`);
-                buttonClicked.style.pointerEvents='none';
-                this.removeLife(buttonLetter);
-            }
-           
-        } else {
-            // KeyPress
-            let code = key.which
-            if (code >= 65){
-                if (this.activePhrase.checkLetter(key.key)){
-                    for (let i=0; i < keysAll.length; i++){
-                        if(key.key === keysAll[i].textContent ){
-                            keysAll[i].setAttribute('class', `${keysAll}[i] chosen`);
-                            keysAll[i].style.pointerEvents='none';
-                        } 
-                    }
-
-                    this.activePhrase.showMatchedLetter(key.key);
+        if(!this.checkForWin()){
+            if(key.type === 'submit'){
+                //Click
+                let buttonLetter = key.textContent;
+                let buttonClicked= key;
+                let keyClass= buttonClicked.className;
+                  
+                if (this.activePhrase.checkLetter(buttonLetter)){
+                    buttonClicked.setAttribute('class', `${keyClass} chosen`);
+                    buttonClicked.style.pointerEvents='none';
+                    
+                    this.activePhrase.showMatchedLetter(buttonLetter);
                     this.checkForWin();
                     if(this.checkForWin()){
                         this.gameOver('win');
                     }
-
                 } else {
-                    for (let i=0; i < keysAll.length; i++){
-                    
-                        if(key.key === keysAll[i].textContent){
-                            keysAll[i].setAttribute('class', `${keysAll}[i] wrong`);
-                            keysAll[i].style.pointerEvents='none';
-                        } 
-                    }
-                    this.removeLife(key.key);
+                    buttonClicked.setAttribute('class', `${keyClass} wrong`);
+                    buttonClicked.style.pointerEvents='none';
+                    this.removeLife(buttonLetter);
                 }
-            } 
+               
+            } else {
+                // KeyPress
+                let code = key.which
+                if (code >= 65){
+                    if (this.activePhrase.checkLetter(key.key)){
+                        for (let i=0; i < keysAll.length; i++){
+                            if(key.key === keysAll[i].textContent ){
+                                keysAll[i].setAttribute('class', `${keysAll}[i] chosen`);
+                                keysAll[i].style.pointerEvents='none';
+                            } 
+                        }
+    
+                        this.activePhrase.showMatchedLetter(key.key);
+                        this.checkForWin();
+                        if(this.checkForWin()){
+                            this.gameOver('win');
+                        }
+    
+                    } else {
+                        for (let i=0; i < keysAll.length; i++){
+                        
+                            if(key.key === keysAll[i].textContent){
+                                keysAll[i].setAttribute('class', `${keysAll}[i] wrong`);
+                                keysAll[i].style.pointerEvents='none';
+                            } 
+                        }
+                        this.removeLife(key.key);
+                    }
+                } 
+            }
+            
         }
+        
     }
 
     gameOver(result){
@@ -141,6 +147,8 @@ let keysAll= document.querySelectorAll('.key');
             const heartImg= heartsOl[i].querySelector('img');
             heartImg.src="images/liveHeart.png";
         }
+        
+      
 
     }
  }
