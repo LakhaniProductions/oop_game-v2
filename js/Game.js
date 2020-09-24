@@ -34,13 +34,10 @@ let keysAll= document.querySelectorAll('.key');
     }
 
     checkForWin(){
-        console.log(hiddenLetters.length)
         if(hiddenLetters.length === 0) {
-            this.gameOver('win');
+            return true;
+            //this.gameOver('win');
         } 
-        // else if (this.missed >= heartsOl.length){
-        //     this.gameOver('lose');
-        // }
     }
 
     removeLife(letter){
@@ -48,7 +45,7 @@ let keysAll= document.querySelectorAll('.key');
         
         if(!this.activePhrase.checkLetter(letter)) {
             this.missed+=1;
-            console.log(this.missed,heartsOl.length)
+            //console.log(this.missed,heartsOl.length)
         } else {
             return false;
         }
@@ -77,12 +74,14 @@ let keysAll= document.querySelectorAll('.key');
                 
                 this.activePhrase.showMatchedLetter(buttonLetter);
                 this.checkForWin();
-                
+                if(this.checkForWin()){
+                    this.gameOver('win');
+                }
             } else {
                 buttonClicked.setAttribute('class', `${keyClass} wrong`);
                 buttonClicked.style.pointerEvents='none';
                 this.removeLife(buttonLetter);
-                this.checkForWin();
+                //this.checkForWin();
             }
            
         } else {
@@ -99,6 +98,9 @@ let keysAll= document.querySelectorAll('.key');
 
                     this.activePhrase.showMatchedLetter(key.key);
                     this.checkForWin();
+                    if(this.checkForWin()){
+                        this.gameOver('win');
+                    }
 
                 } else {
                     for (let i=0; i < keysAll.length; i++){
@@ -108,9 +110,8 @@ let keysAll= document.querySelectorAll('.key');
                             keysAll[i].style.pointerEvents='none';
                         } 
                     }
-
                     this.removeLife(key.key);
-                    this.checkForWin();
+                    //this.checkForWin();
                 }
             } 
         }
