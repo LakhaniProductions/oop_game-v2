@@ -37,10 +37,10 @@ let keysAll= document.querySelectorAll('.key');
     }
 
     getRandomPhrase(){
-        for(let i=0; i < this.phrases.length; i++){
-            i = Math.floor(Math.random() * (this.phrases.length - 0) + 0);
-            return this.phrases[i];
-        }
+
+        let i = Math.floor(Math.random() * (this.phrases.length - 0) + 0);
+        return this.phrases[i];
+        
     }
 
     startGame(){
@@ -65,7 +65,7 @@ let keysAll= document.querySelectorAll('.key');
     }
 
     removeLife(letter){
-        
+
         if(!phrase.checkLetter(letter)) {
             this.missed+=1;
         } else {
@@ -79,31 +79,69 @@ let keysAll= document.querySelectorAll('.key');
         
         if(this.missed >= heartsOl.length) {
             this.gameOver('lose');
-        } 
-        
+        }
     }
 
     handleInteraction(key){
-        
-        if (phrase.checkLetter(key) && key){
-            for (let i=0; i < keysAll.length; i++){
-                if(key === keysAll[i].textContent ){
-                    keysAll[i].setAttribute('class', `${keysAll}[i] chosen`);
-                    keysAll[i].style.pointerEvents='none';
-                } 
-            }
+        // KeyPress
+        console.log(key);
+        if(key.type === 'submit'){
+                //Click
 
-            phrase.showMatchedLetter(key);
-            this.checkForWin();
-        } else {
-            for (let i=0; i < keysAll.length; i++){
-               
-                if(key === keysAll[i].textContent){
-                    keysAll[i].setAttribute('class', `${keysAll}[i] wrong`);
-                    keysAll[i].style.pointerEvents='none';
-                } 
+            let buttonLetter = key.textContent;
+            let buttonClicked= key;
+            let keyClass= buttonClicked.className;
+            //phrase.checkLetter(buttonLetter);
+            
+            if (phrase.checkLetter(buttonLetter)){
+                buttonClicked.setAttribute('class', `${keyClass} chosen`);
+                buttonClicked.style.pointerEvents='none';
+                
+                phrase.showMatchedLetter(buttonLetter);
+                game.checkForWin();
+                
+            } else {
+                buttonClicked.setAttribute('class', `${keyClass} wrong`);
+                buttonClicked.style.pointerEvents='none';
+                game.removeLife(buttonLetter);
             }
+           
+        } else {
+        
+
+
+
+        console.log(key.type)
+        let code = key.which
+        if (code >= 65){
+            if (phrase.checkLetter(key.key)){
+                for (let i=0; i < keysAll.length; i++){
+                    if(key.key === keysAll[i].textContent ){
+                        keysAll[i].setAttribute('class', `${keysAll}[i] chosen`);
+                        keysAll[i].style.pointerEvents='none';
+                    } 
+                }
+    
+                phrase.showMatchedLetter(key.key);
+                this.checkForWin();
+            } else {
+                for (let i=0; i < keysAll.length; i++){
+                
+                    if(key.key === keysAll[i].textContent){
+                        keysAll[i].setAttribute('class', `${keysAll}[i] wrong`);
+                        keysAll[i].style.pointerEvents='none';
+                    } 
+                }
+
+                this.removeLife(key.key);
+            }
+        } 
         }
+        
+
+        
+
+        
     }
 
     gameOver(result){
@@ -115,6 +153,7 @@ let keysAll= document.querySelectorAll('.key');
             overlay.style.display='inherit';
             overlay.setAttribute('class', result);
             message.textContent= `You've Done It! You Won!`;
+            
         } else if (result==='lose') {
             overlay.style.display='inherit';
             overlay.setAttribute('class', result);
@@ -147,7 +186,27 @@ let keysAll= document.querySelectorAll('.key');
 
 
 
+/* WORKING HANDLE INTERACTION CODE */
 
+// if (phrase.checkLetter(key.key)){
+        //     for (let i=0; i < keysAll.length; i++){
+        //         if(key.key === keysAll[i].textContent ){
+        //             keysAll[i].setAttribute('class', `${keysAll}[i] chosen`);
+        //             keysAll[i].style.pointerEvents='none';
+        //         } 
+        //     }
+
+        //     phrase.showMatchedLetter(key.key);
+        //     this.checkForWin();
+        // } else {
+        //     for (let i=0; i < keysAll.length; i++){
+               
+        //         if(key.key === keysAll[i].textContent){
+        //             keysAll[i].setAttribute('class', `${keysAll}[i] wrong`);
+        //             keysAll[i].style.pointerEvents='none';
+        //         } 
+        //     }
+        // }
 
 
 
